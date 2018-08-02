@@ -11,5 +11,10 @@ export default new Router({
       name: 'Home',
       component: Home,
     },
+    {
+      path: '/events',
+      name: 'Events',
+      component: () => import('@/pages/Events')
+    },
   ]
 })
