@@ -1,6 +1,9 @@
-# robotics-ui
+# Official website for Robotics Club CIT Kokrajhar
 
 > Front-End for Robotics Club website
+
+[![GitHub last commit](https://img.shields.io/github/last-commit/anupamsaikia/robotics-ui.svg)](https://github.com/anupamsaikia/robotics-ui)
+[![GitHub contributors](https://img.shields.io/github/contributors/anupamsaikia/robotics-ui.svg)](https://github.com/anupamsaikia/robotics-ui/graphs/contributors)
 
 ## Build Setup
 
@@ -18,4 +21,5 @@ npm run build
 npm run build --report
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+# Contributions
+Feel free to send pull requests to contribute.
