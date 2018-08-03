@@ -1,5 +1,6 @@
 <template>
   <v-app id="inspire">
+    <r-loading v-show="loading" style="z-index:100"></r-loading>
     <v-navigation-drawer
       :clipped="$vuetify.breakpoint.lgAndUp"
       v-model="drawer"
@@ -62,7 +63,17 @@
 </template>
 
 <script>
+  import Loading from '@/components/loading'
+
   export default {
+    components: {
+      'r-loading': Loading,
+    },
+    computed:{
+      loading(){
+        return this.$store.state.loading
+      }
+    },
     data: () => ({
       title: 'Robotics Club',
       drawer: null,
