@@ -1,8 +1,12 @@
 <!-- Loading -->
   <template>
-    <div class="loading mt-3">
-      <v-progress-circular indeterminate color="primary"></v-progress-circular>
-    </div>
+      <v-progress-linear 
+      indeterminate
+      height="3"
+      color="amber darken-2"
+      class="my-0"
+      style="position:fixed; top:0px"
+      ></v-progress-linear>
   </template>
 
 <script>
@@ -12,9 +16,4 @@ export default {
 </script>
 
 <style scoped>
-.loading{
-  display: flex;
-  justify-content: center;
-  align-items: center
-}
 </style>
