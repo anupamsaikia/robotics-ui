@@ -1,6 +1,6 @@
 <template>
   <!-- Error message -->
-  <div v-if="error" class="my-5">
+  <div class="my-5">
     <v-layout row>
       <v-flex xs12 sm10 offset-sm1>
         <v-card>
