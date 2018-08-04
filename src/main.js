@@ -8,8 +8,12 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import store from '@/store'
 
-Vue.use(Vuex)
+import MyError from '@/components/error'
+
 Vue.use(Vuetify)
+
+//global components 
+Vue.component('my-error', MyError)
 
 Vue.config.productionTip = false
 
@@ -18,6 +22,8 @@ new Vue({
   store,
   el: '#app',
   router,
-  components: { App },
+  components: {
+    App,
+  },
   template: '<App/>'
 })
