@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <r-loading v-show="loading" style="z-index:100"></r-loading>
+    <my-loader v-show="loading" style="z-index:100"></my-loader>
     <v-navigation-drawer
       :clipped="$vuetify.breakpoint.lgAndUp"
       v-model="drawer"
@@ -63,11 +63,11 @@
 </template>
 
 <script>
-  import Loading from '@/components/loading'
+  import Loader from '@/components/loader'
 
   export default {
     components: {
-      'r-loading': Loading,
+      'my-loader': Loader,
     },
     computed:{
       loading(){
