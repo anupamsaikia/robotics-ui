@@ -1,41 +1,42 @@
-//TODO : fix utc time
-//first three functions are incorrectly implemented
-
-
-export function getDateFromUTC(utc) {
+export function getDateFromDateObject(d) {
   try {
-    var x = new Date(utc);
-    var date = x.getUTCFullYear() + '-' + (x.getUTCMonth() + 1).toString().padStart(2,"0") + '-' + x.getUTCDate().toString().padStart(2,"0");
-    return date;
+    var x = new Date(d);
+    var d = x.getFullYear() + '-' + (x.getMonth() + 1).toString().padStart(2,"0") + '-' + x.getDate().toString().padStart(2,"0");
+    return d;
   } catch (error) {
     console.log(error);
   }
 }
 
-export function getTimeFromUTC(utc) {
+export function getTimeFromDateObject(d) {
   try {
-    var x = new Date(utc);
-    var time = x.getUTCHours().toString().padStart(2,"0") + ':' + x.getUTCMinutes().toString().padStart(2,"0");
+    var x = new Date(d);
+    var time = x.getHours().toString().padStart(2,"0") + ':' + x.getMinutes().toString().padStart(2,"0");
     return time;
   } catch (error) {
     console.log(error);
   }
 }
 
-export function getUTCFromDateTime(date, time) {
+export function getDateObjectFromDateTime(date, time) {
   try {
-    var x = new Date();
     time = time.split(':');
     date = date.split('-');
     
-    x.setUTCHours(time[0], time[1], 0, 0);
-    x.setUTCFullYear(date[0], parseInt(date[1]) - 1, date[2])
+    var d = new Date();
+    d.setHours(time[0], time[1], 0, 0);
+    d.setFullYear(date[0], parseInt(date[1]) - 1, date[2])
 
-    return x;
+    return d;
   } catch (error) {
     console.log(error);
   }
 }
+
+
+
+
+
 
 //to format date and time display
 export function toNiceDateString(date){
