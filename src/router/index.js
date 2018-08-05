@@ -16,5 +16,10 @@ export default new Router({
       name: 'Events',
       component: () => import('@/pages/Events')
     },
+    {
+      path: '/events/:_id',
+      name: 'SingleEvent',
+      component: () => import('@/pages/SingleEvent')
+    }
   ]
 })
