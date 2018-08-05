@@ -82,7 +82,7 @@
         { icon: 'person_add', text: 'Join Club', target: 'join' },
         { icon: 'event', text: 'Events', target: 'events' },
         { icon: 'android', text: 'Projects', target: 'projects' },
-        { icon: 'group', text: 'Team', target: 'team' },
+        { icon: 'group', text: 'Members', target: 'members' },
         { icon: 'book', text: 'Tutorials', target: 'tutorials' },
         { icon: 'photo_library', text: 'Photo Gallery', target: 'gallery' },
         /* { icon: 'chat_bubble', text: 'Send feedback', target: '' },
@@ -102,5 +102,10 @@ a{
   color: inherit;
   font:inherit;
 }
+
+.my-link{
+  width:100%; 
+}
+
 </style>
 
