@@ -1,11 +1,11 @@
 <template>
 <div>
 <!-- Error -->
-<my-error v-if="error" :title="error.title" :description="error.description"></my-error>
+  <my-error v-if="error" :title="error.title" :description="error.description"></my-error>
 
 <!-- Events list -->
   
-  <v-layout row class="my-3">
+  <v-layout row class="my-3" v-else>
     <v-flex xs12 sm8 offset-sm2>
       <v-card>
         <v-tabs
