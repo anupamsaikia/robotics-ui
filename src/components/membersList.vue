@@ -1,4 +1,5 @@
 <template>
+<div>
   <v-list two-line>
     <template v-for="(member, index) in members">
       <v-list-tile
@@ -51,7 +52,11 @@
     </template>
   </v-list>
 
+  <div v-if="message" class="my-5">
+    <p class="title py-5 px-2 grey--text text--darken-2" style="text-align:center">{{ message }}</p>
+  </div>
 
+</div>
 </template>
 
 
@@ -66,6 +71,8 @@ export default {
         { title: 'Edit Member'},
         { title: 'Delete Member'},
       ],
+      //to show msg in case of no member present
+      message: null
 
 
     }
