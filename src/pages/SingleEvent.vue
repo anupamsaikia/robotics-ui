@@ -79,7 +79,7 @@ export default {
       
       this.eventData = null
       this.loading('start')
-      fetch(this.$store.state.url + this.$route.params._id , {
+      fetch(this.$store.state.url + '/api/event/' + this.$route.params._id , {
         method: 'GET'
       })
       .then((response) => {
