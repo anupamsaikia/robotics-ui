@@ -2,7 +2,7 @@
   <v-list two-line>
     <template v-for="(member, index) in members">
       <v-list-tile
-        :key="index"
+        :key="member._id"
         avatar
         @click="() => {}"
       >
@@ -67,7 +67,7 @@ export default {
         { title: 'Delete Member'},
       ],
 
-      
+
     }
   },
 
@@ -75,6 +75,7 @@ export default {
     this.getData()
   },
 
+  props:['mtype'],
   
   methods:{
     ...mapActions([
