@@ -3,7 +3,7 @@
       <v-progress-linear 
       indeterminate
       height="3"
-      color="amber darken-2"
+      color="red"
       class="my-0"
       style="position:fixed; top:0px"
       ></v-progress-linear>
