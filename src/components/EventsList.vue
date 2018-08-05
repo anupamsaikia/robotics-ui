@@ -1,62 +1,58 @@
 <template>
-  <div>
-    <div v-if="events">
-   
-          <v-list three-line subheader>
-            <template v-for="(event, index) in events">
-              <v-subheader :key="event.header" v-if="event.header">{{event.header}}</v-subheader>
-              <v-list-tile
-                :key="event._id"
-                v-else
-                avatar
-                @click="()=>{}"
+<div>
+  <div v-if="events">
+    <v-list three-line subheader>
+      <template v-for="(event, index) in events">
+        <v-list-tile
+          :key="event._id"
+          avatar
+          @click="()=>{}"
+        >
+          <v-list-tile-avatar color="blue" size="48">
+            <span class="white--text caption">25 Aug</span>
+          </v-list-tile-avatar>
+
+          <v-list-tile-content>
+            <router-link :to="'/events/'+event._id" class="my-link">
+              <v-list-tile-title class="body-2 grey--text text--darken-3">{{ event.title }}</v-list-tile-title>
+              <v-list-tile-sub-title class="body-1">{{ event.place }}</v-list-tile-sub-title>
+              <v-list-tile-sub-title class="body-1">{{ dateTime.toNiceDateString(event.Date) + " " + dateTime.toNiceTimeString(event.Date) }}</v-list-tile-sub-title>
+            </router-link>
+          </v-list-tile-content>
+
+          <v-list-tile-action>
+            <v-list-tile-action-text>{{ dateTime.getInterval(event.Date) }}</v-list-tile-action-text>
+            <v-menu
+              left
+              nudge-left="40"
+            >
+              <v-btn
+                slot="activator"
+                icon
+                ripple
               >
-              <v-list-tile-avatar color="blue" size="48">
-                <span class="white--text caption">25 Aug</span>
-              </v-list-tile-avatar>
+                <v-icon>more_vert</v-icon>
+              </v-btn>
 
-                <v-list-tile-content>
-                  <router-link :to="'/events/'+event._id" class="event-link">
-                    <v-list-tile-title class="body-2 grey--text text--darken-3">{{ event.title }}</v-list-tile-title>
-                    <v-list-tile-sub-title class="body-1">{{ event.place }}</v-list-tile-sub-title>
-                    <v-list-tile-sub-title class="body-1">{{ dateTime.toNiceDateString(event.Date) + " " + dateTime.toNiceTimeString(event.Date) }}</v-list-tile-sub-title>
-                  </router-link>
-                </v-list-tile-content>
+              <v-list>
+                <v-list-tile
+                  v-for="(item, i) in eventActions"
+                  :key="i"
+                  @click="selectEventAction(item.title, event._id)"
+                >
+                  <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                </v-list-tile>
+              </v-list>
+            </v-menu>
+          </v-list-tile-action>
 
-                <v-list-tile-action>
-                  <v-list-tile-action-text>{{ dateTime.getInterval(event.Date) }}</v-list-tile-action-text>
-                  <v-menu
-                    left
-                    nudge-left="40"
-                  >
-                    <v-btn
-                      slot="activator"
-                      icon
-                      ripple
-                    >
-                      <v-icon>more_vert</v-icon>
-                    </v-btn>
-
-                    <v-list>
-                      <v-list-tile
-                        v-for="(item, i) in eventActions"
-                        :key="i"
-                        @click="selectEventAction(item.title, event._id)"
-                      >
-                        <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-                      </v-list-tile>
-                    </v-list>
-                  </v-menu>
-                </v-list-tile-action>
-
-              </v-list-tile>
-              <v-divider
-                v-if="index + 1 < events.length && !event.header"
-                :key="index"
-              ></v-divider>
-            </template>
-          </v-list>
-        
+        </v-list-tile>
+        <v-divider
+          v-if="index + 1 < events.length && !event.header"
+          :key="index"
+        ></v-divider>
+      </template>
+    </v-list>
   </div>
 
 
@@ -71,7 +67,11 @@
     ></v-pagination>
   </div>
 
+  <div v-if="message" class="my-5">
+    <p class="title py-5 px-2 grey--text text--darken-2" style="text-align:center">{{ message }}</p>
   </div>
+
+</div>
 </template>
 
 <script>
@@ -85,6 +85,9 @@ export default {
     return {
       //to store all the events
       events: null,
+      total: null,
+      //to show msg in case of no event present
+      message: null,
 
       //action list for individual event
       eventActions: [
@@ -119,14 +122,22 @@ export default {
         return Promise.reject(response);
       })
       .then((response) => {
-        response.forEach(event => {
-          event.Date = new Date(event.time);
-        });
+        if(response.events.length < 1){
+          this.message = "No Events found"
+        }
+        else{
+          response.events.forEach(event => {
+            event.Date = new Date(event.time)
+          })
+          this.events = response.events
+          this.total = response.total
+        }
         this.loading('stop')
-        this.events = response;
       })
       .catch((error) => {
+        console.log(error)
         this.loading('stop')
+        this.events = null
         var errDetails
         if(error.statusText){
           errDetails = {
@@ -156,10 +167,4 @@ export default {
 }
 
 </script>
-
-<style scoped>
-.event-link{
-  width:100%; 
-}
-</style>
 
