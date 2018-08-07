@@ -35,12 +35,11 @@
               </v-btn>
 
               <v-list>
-                <v-list-tile
-                  v-for="(item, i) in eventActions"
-                  :key="i"
-                  @click="selectEventAction(item.title, event._id)"
-                >
-                  <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                <v-list-tile @click="()=>{}">
+                  <v-list-tile-title>Edit Event</v-list-tile-title>
+                </v-list-tile>
+                <v-list-tile @click="()=>{}">
+                  <v-list-tile-title>Delete Event</v-list-tile-title>
                 </v-list-tile>
               </v-list>
             </v-menu>
