@@ -110,15 +110,7 @@ export default {
         }
         this.$emit('error', errDetails)
       })
-
     },
-
-    //to format date and time display
-    toNiceDateString : dateTime.toNiceDateString,
-    toNiceTimeString : dateTime.toNiceTimeString,
-    getInterval : dateTime.getInterval,
-
-
 
   }
 
@@ -126,8 +118,3 @@ export default {
 </script>
 
 
-<style scoped>
-.event-link{
-  width:100%; 
-}
-</style>
