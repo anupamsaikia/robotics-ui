@@ -91,6 +91,7 @@ export default {
       .then((response) => {
         response.Date = new Date(response.time)
         this.loading('stop')
+        document.title = response.title + ' | Robotics Club, CIT Kokrajhar'
         this.eventData = response;
       })
       .catch((error) => {
