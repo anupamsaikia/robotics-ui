@@ -11,6 +11,11 @@ import MyError from '@/components/error'
 
 Vue.use(Vuetify)
 
+router.beforeEach((to, from, next) => {
+  to.meta.title && (document.title = to.meta.title + ' | Robotics Club, CIT Kokrajhar')
+  next()
+})
+
 //global components 
 Vue.component('my-error', MyError)
 

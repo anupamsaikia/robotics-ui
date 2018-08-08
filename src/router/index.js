@@ -10,26 +10,31 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home,
+      meta: { title: 'Robotics Club, CIT Kokrajhar' }
     },
     {
       path: '/events',
       name: 'Events',
-      component: () => import('@/pages/Events')
+      component: () => import('@/pages/Events'),
+      meta: { title: 'Events' }
     },
     {
       path: '/events/:_id',
       name: 'SingleEvent',
-      component: () => import('@/pages/SingleEvent')
+      component: () => import('@/pages/SingleEvent'),
+      meta: { title: 'Event' }
     },
     {
       path: '/events/:_id/edit',
       name: 'EditEvent',
-      component: () => import('@/components/editEvent')
+      component: () => import('@/components/editEvent'),
+      meta: { title: 'Edit event' }
     },
     {
       path: '/members',
       name: 'Members',
-      component: () => import('@/pages/Members')
+      component: () => import('@/pages/Members'),
+      meta: { title: 'Members' }
     }
   ]
 })
