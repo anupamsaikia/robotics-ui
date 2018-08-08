@@ -1,6 +1,6 @@
 <template>
   <!-- Add event dialog -->
-  <v-layout row v-if="eventData">
+  <v-layout row class="my-3">
     <v-flex xs12 sm8 offset-sm2>
       <v-card>
         <v-form
@@ -34,7 +34,7 @@
                 <v-dialog
                   ref="datePicker"
                   v-model="datePicker"
-                  :return-value.sync="eventDateString"
+                  :return-value.sync="eventData.eventDateString"
                   persistent
                   lazy
                   full-width
@@ -42,17 +42,17 @@
                 >
                   <v-text-field
                     slot="activator"
-                    v-model="eventDateString"
+                    v-model="eventData.eventDateString"
                     label="Event Date"
                     prepend-icon="event"
                     readonly
                     required
                     :rules="dateRules"
                   ></v-text-field>
-                  <v-date-picker v-model="eventDateString" scrollable>
+                  <v-date-picker v-model="eventData.eventDateString" scrollable>
                     <v-spacer></v-spacer>
                     <v-btn flat color="primary" @click="datePicker = false">Cancel</v-btn>
-                    <v-btn flat color="primary" @click="$refs.datePicker.save(eventDateString)">OK</v-btn>
+                    <v-btn flat color="primary" @click="$refs.datePicker.save(eventData.eventDateString)">OK</v-btn>
                   </v-date-picker>
                 </v-dialog>
               </v-flex>
@@ -60,7 +60,7 @@
                 <v-dialog
                   ref="timePicker"
                   v-model="timePicker"
-                  :return-value.sync="eventTimeString"
+                  :return-value.sync="eventData.eventTimeString"
                   persistent
                   lazy
                   full-width
@@ -68,7 +68,7 @@
                 >
                   <v-text-field
                     slot="activator"
-                    v-model="eventTimeString"
+                    v-model="eventData.eventTimeString"
                     label="Event time"
                     prepend-icon="access_time"
                     readonly
@@ -77,11 +77,11 @@
                   ></v-text-field>
                   <v-time-picker
                     v-if="timePicker"
-                    v-model="eventTimeString"
+                    v-model="eventData.eventTimeString"
                   >
                     <v-spacer></v-spacer>
                     <v-btn flat color="primary" @click="timePicker = false">Cancel</v-btn>
-                    <v-btn flat color="primary" @click="$refs.timePicker.save(eventTimeString)">OK</v-btn>
+                    <v-btn flat color="primary" @click="$refs.timePicker.save(eventData.eventTimeString)">OK</v-btn>
                   </v-time-picker>
                 </v-dialog>
               </v-flex>
@@ -159,7 +159,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn flat color="primary" @click="()=>{}">Cancel</v-btn>
-          <v-btn  color="primary" @click="test()">Save</v-btn>
+          <v-btn  color="primary" @click="()=>{}">Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-flex>
@@ -175,17 +175,14 @@ export default {
   created () {
     this.getData()
   },
+  props: ['mode', 'event_id'],
 
   data: () => ({
 
-    eventData: null,
+    eventData: {},
     
     datePicker: false,
     timePicker: false,
-
-    eventDateString: null,
-    eventTimeString: null,
-
 
     //for input validation
     titleRules :[
@@ -223,7 +220,7 @@ export default {
     getData(){
       this.eventData = null
       this.loading('start')
-      fetch(this.$store.state.url + '/api/event/' + this.$route.params._id , {
+      fetch(this.$store.state.url + '/api/event/' + this.event_id , {
         method: 'GET'
       })
       .then((response) => {
@@ -234,6 +231,8 @@ export default {
       })
       .then((response) => {
         response.Date = new Date(response.time)
+        response.eventDateString = dateTime.getDateFromDateObject(response.Date)
+        response.eventTimeString = dateTime.getTimeFromDateObject(response.Date)
         this.loading('stop')
         this.eventData = response;
       })
@@ -255,11 +254,6 @@ export default {
         this.$emit('error', errDetails)
       })
     },
-
-    test(){
-      console.log(dateTime.getDateObjectFromDateTime(this.eventDateString, this.eventTimeString).toISOString())
-    },
-
 
     //To add/edit an event
     addOrEditData(){
