@@ -22,6 +22,11 @@ export default new Router({
       component: () => import('@/pages/SingleEvent')
     },
     {
+      path: '/events/:_id/edit',
+      name: 'EditEvent',
+      component: () => import('@/components/editEvent')
+    },
+    {
       path: '/members',
       name: 'Members',
       component: () => import('@/pages/Members')
