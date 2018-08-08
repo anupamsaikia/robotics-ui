@@ -35,7 +35,7 @@
               </v-btn>
 
               <v-list>
-                <v-list-tile @click="()=>{}">
+                <v-list-tile :to="'/events/'+event._id+'/edit'">
                   <v-list-tile-title>Edit Event</v-list-tile-title>
                 </v-list-tile>
                 <v-list-tile @click="()=>{}">
@@ -87,13 +87,6 @@ export default {
       total: null,
       //to show msg in case of no event present
       message: null,
-
-      //action list for individual event
-      eventActions: [
-        { title: 'Modify Event'},
-        { title: 'Delete Event'},
-      ],
-
       //url page order
       page: 1,
       length: 4,
