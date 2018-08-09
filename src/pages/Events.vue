@@ -38,6 +38,12 @@
     </v-flex>
   </v-layout>
 
+
+<!-- add event dialog -->
+  <v-dialog v-model="addEventDialog" max-width="600">
+    <event-editor mode='add'></event-editor>
+  </v-dialog>
+
 <!-- Gap -->
   <div style="height:30px">
   </div>
@@ -47,6 +53,7 @@
   <v-btn
     color="pink"
     dark fixed bottom right fab
+    @click="addEventDialog = true"
   >
     <v-icon>add</v-icon>
   </v-btn>
@@ -57,15 +64,17 @@
 
 <script>
 import EventsList from '@/components/EventsList'
+import EventEditor from '@/components/eventEditor'
 
 export default {
   data(){
     return {
       error: null,
       tab: "true",
+      addEventDialog: false,
     }
   },
-  components: { EventsList },
+  components: { EventsList, EventEditor },
 }
 </script>
 

@@ -1,10 +1,14 @@
 <template>
-  <div>
+  <div class="my-3">
 <!-- Error -->
   <my-error v-if="error" :title="error.title" :description="error.description"></my-error>
 
-  <event-editor v-if="event_id" :event_id="event_id" @error="error = $event"></event-editor>
-
+    <!-- Add event dialog -->
+  <v-layout row>
+    <v-flex xs12 sm8 offset-sm2>
+      <event-editor v-if="event_id" mode="edit" :event_id="event_id" @error="error = $event"></event-editor>
+    </v-flex>
+  </v-layout>
   </div>
 </template>
 
