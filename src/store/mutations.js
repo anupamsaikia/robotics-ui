@@ -7,5 +7,13 @@ export default {
   },
   stopLoading(state){
     state.loading = false
+  },
+
+  setToken(state, token){
+    state.authToken = String(token)
+  },
+  removeToken(state){
+    window.localStorage.removeItem('authtoken')
+    state.authToken = null
   }
 }
