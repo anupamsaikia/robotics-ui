@@ -1,14 +1,12 @@
 <template>
-  <!-- Add event dialog -->
-  <v-layout row class="my-3">
-    <v-flex xs12 sm8 offset-sm2>
+
       <v-card>
         <v-form
           ref="form"
         >
           <v-container>
             <v-layout wrap>
-              <v-flex xs12 md6>
+              <v-flex xs12>
                 <v-text-field
                   v-model="eventData.title"
                   label="Title"
@@ -19,7 +17,7 @@
                   :counter="100"
                 ></v-text-field>
               </v-flex>
-              <v-flex xs12 md6>
+              <v-flex xs12>
                 <v-text-field
                   v-model="eventData.place"
                   label="Place"
@@ -162,8 +160,7 @@
           <v-btn  color="primary" @click="()=>{}">Save</v-btn>
         </v-card-actions>
       </v-card>
-    </v-flex>
-  </v-layout>
+
 </template>
 
 <script>
@@ -173,7 +170,8 @@ import { mapActions } from 'vuex'
 export default {
 
   created () {
-    this.getData()
+    if(this.mode == 'edit')
+      this.getData()
   },
   props: ['mode', 'event_id'],
 
