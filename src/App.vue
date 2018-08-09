@@ -52,10 +52,34 @@
         <span class="">{{ title }}</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon>
-        <v-icon>more_vert</v-icon>
-      </v-btn>
+      <v-menu
+        left
+        nudge-left="40"
+      >
+        <v-btn
+          slot="activator"
+          icon
+        >
+          <v-icon>person</v-icon>
+        </v-btn>
+
+        <v-list>
+          <v-list-tile @click="()=>{adminLoginDialog = true}">
+            <v-list-tile-title>Admin Login</v-list-tile-title>
+          </v-list-tile>
+          <v-list-tile @click="()=>{}">
+            <v-list-tile-title>Logout</v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
     </v-toolbar>
+
+
+    <v-dialog max-width="600" v-model="adminLoginDialog">
+      <admin-login></admin-login>
+    </v-dialog>
+
+
     <v-content>
       <router-view/>
     </v-content>
@@ -64,10 +88,12 @@
 
 <script>
   import Loader from '@/components/loader'
+  import AdminLogin from '@/components/adminLogin'
 
   export default {
     components: {
       'my-loader': Loader,
+      AdminLogin,
     },
     computed:{
       loading(){
@@ -87,7 +113,10 @@
         { icon: 'photo_library', text: 'Photo Gallery', target: 'gallery' },
         /* { icon: 'chat_bubble', text: 'Send feedback', target: '' },
         { icon: 'help', text: 'Help', target: '' }, */
-      ]
+      ],
+
+      adminLoginDialog: false,
+
     }),
     methods: {
       
