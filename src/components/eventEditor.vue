@@ -157,14 +157,14 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn flat color="primary" @click="()=>{}">Cancel</v-btn>
-          <v-btn  color="primary" @click="()=>{}">Save</v-btn>
+          <v-btn  color="primary" @click="addOrEditData">Save</v-btn>
         </v-card-actions>
       </v-card>
 
 </template>
 
 <script>
-import * as dateTime from '@/helpers/datetime'
+import * as dateTime from '../helpers/datetime'
 import { mapActions } from 'vuex'
 
 export default {
@@ -255,53 +255,37 @@ export default {
 
     //To add/edit an event
     addOrEditData(){
+      this.loading('start')
       //clean the data for submit
-      this.eventData.time = dateTime.getDateObjectFromDateTime(this.eventDateString, this.eventTimeString).toISOString()
+      this.eventData.time = dateTime.getDateObjectFromDateTime(this.eventData.eventDateString, this.eventData.eventTimeString).toISOString()
+
       if(this.eventData.tags && typeof this.eventData.tags == 'string'){
         this.eventData.tags = this.eventData.tags.split(',');
         this.eventData.tags = this.eventData.tags.map(s => s.trim());
       }
 
-      console.log(JSON.stringify(this.eventData))
 
-      if(this.currentOperation == 'add'){
-        fetch(this.url, {
-          method: 'POST',  
-          headers: {
-            "Content-Type": "application/json; charset=utf-8"
-          },
-          body: JSON.stringify(this.eventData),
-        })
-        .then(response => {
-          if(response.ok){
-            //response.json();
-            console.log(response.statusText);
-          }
-          else {
-            return Promise.reject(response);
-          }
-        })
-        .catch(error => console.error(`Fetch Error =\n`, error));
-      }
-      else if(this.currentOperation == 'edit'){
-        fetch(this.url + '/' + this.currentEventId, {
-          method: 'PUT',          
-          body: JSON.stringify(this.eventData),
-        })
-        .then(response => {
-          if(response.ok){
-            //response.json();
-            console.log(response.statusText);
-          }
-          else {
-            return Promise.reject(response);
-          }
-        })
-        .catch(error => console.error(`Fetch Error =\n`, error));
-      }
-      else{
-        console.log('error')
-      }
+      fetch(this.$store.state.url + '/api/event/' + (this.mode == 'edit'? this.eventData._id: ''), {
+        method: this.mode == 'edit'? 'PUT': 'POST',
+        headers: {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        body: JSON.stringify(this.eventData),
+      })
+      .then(response => {
+        if(response.ok){
+          alert('Added')
+        }
+        else {
+          return Promise.reject(response);
+        }
+        this.loading('stop')
+      })
+      .catch(error => {
+        console.error(`Fetch Error =\n`, error)
+        this.loading('stop')
+      });
+
     },
 
 
