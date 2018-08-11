@@ -156,7 +156,7 @@
         <v-divider></v-divider>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn flat color="primary" @click="()=>{}">Cancel</v-btn>
+          <v-btn flat color="primary" @click="$emit('close')">Cancel</v-btn>
           <v-btn  color="primary" @click="addOrEditData">Save</v-btn>
         </v-card-actions>
       </v-card>
@@ -216,7 +216,6 @@ export default {
 
     //To get event data from server
     getData(){
-      this.eventData = null
       this.loading('start')
       fetch(this.$store.state.url + '/api/event/' + this.event_id , {
         method: 'GET'
@@ -258,17 +257,19 @@ export default {
       this.loading('start')
       //clean the data for submit
       this.eventData.time = dateTime.getDateObjectFromDateTime(this.eventData.eventDateString, this.eventData.eventTimeString).toISOString()
-
-      if(this.eventData.tags && typeof this.eventData.tags == 'string'){
+      console.log(this.eventData.time)
+      /* if(this.eventData.tags && typeof this.eventData.tags == 'string'){
         this.eventData.tags = this.eventData.tags.split(',');
         this.eventData.tags = this.eventData.tags.map(s => s.trim());
-      }
+
+      } */
 
 
       fetch(this.$store.state.url + '/api/event/' + (this.mode == 'edit'? this.eventData._id: ''), {
         method: this.mode == 'edit'? 'PUT': 'POST',
         headers: {
-          "Content-Type": "application/json; charset=utf-8"
+          "Content-Type": "application/json; charset=utf-8",
+          "x-access-token": this.$store.state.authToken,
         },
         body: JSON.stringify(this.eventData),
       })
