@@ -265,7 +265,7 @@ export default {
       } */
 
 
-      fetch(this.$store.state.url + '/api/event/' + (this.mode == 'edit'? this.eventData._id: ''), {
+      fetch(this.$store.state.url + '/api/event/' + (this.mode == 'edit'? this.event_id: ''), {
         method: this.mode == 'edit'? 'PUT': 'POST',
         headers: {
           "Content-Type": "application/json; charset=utf-8",
