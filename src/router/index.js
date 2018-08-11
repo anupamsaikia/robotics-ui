@@ -13,6 +13,12 @@ export default new Router({
       meta: { title: 'Robotics Club, CIT Kokrajhar' }
     },
     {
+      path: '/join',
+      name: 'Join',
+      component: () => import('@/pages/JoinClub'),
+      meta: { title: 'Registration' }
+    },
+    {
       path: '/events',
       name: 'Events',
       component: () => import('@/pages/Events'),
