@@ -1,1 +1,1 @@
-export default 'https://robotics-api.azurewebsites.net'
+export default 'https://robotics-api.herokuapp.com'
