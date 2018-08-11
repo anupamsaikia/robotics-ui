@@ -12,8 +12,19 @@ import MyError from '@/components/error'
 Vue.use(Vuetify)
 
 router.beforeEach((to, from, next) => {
-  to.meta.title && (document.title = to.meta.title + ' | Robotics Club, CIT Kokrajhar')
-  next()
+  var ok = true
+
+  if (to.meta.auth && !store.state.authToken){
+    ok = false
+  }
+
+  if (ok){
+    to.meta.title && (document.title = to.meta.title + ' | Robotics Club, CIT Kokrajhar')
+    next()
+  }
+  else{
+    store.dispatch('toggleLoginForm', to.path)
+  }
 })
 
 //global components 

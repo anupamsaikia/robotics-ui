@@ -42,6 +42,7 @@
 <script>
 import { mapActions } from 'vuex'
 export default {
+  props: ['next'],
   data: ()=>({
     phone: null,
     password: null,
@@ -61,6 +62,10 @@ export default {
       if(success){
         this.message = ''
         this.$emit('close')
+
+        if(this.next){
+          this.$router.push(this.next)
+        }
       }
       else {
         this.message = "Login Failed : " + msg

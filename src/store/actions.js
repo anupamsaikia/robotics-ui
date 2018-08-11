@@ -48,5 +48,9 @@ export default {
 
   logout({ commit }){
     commit('removeToken')
-  }
+  },
+
+  toggleLoginForm({ commit }, next){
+    commit('toggleAdminDialog', next)
+  },
 }

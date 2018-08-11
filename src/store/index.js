@@ -11,6 +11,8 @@ export default new Vuex.Store({
     loading: false,
     url,
     authToken: window.localStorage.getItem('authtoken'),
+    adminLoginDialog: false,
+    loginNext: null,
   },
   actions,
   mutations,

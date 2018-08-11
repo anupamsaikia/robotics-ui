@@ -16,5 +16,10 @@ export default {
   removeToken(state){
     window.localStorage.removeItem('authtoken')
     state.authToken = null
-  }
+  },
+
+  toggleAdminDialog(state, next){
+    state.adminLoginDialog = !state.adminLoginDialog
+    state.loginNext = next
+  },
 }

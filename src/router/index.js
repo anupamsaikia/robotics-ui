@@ -28,7 +28,7 @@ export default new Router({
       path: '/events/:_id/edit',
       name: 'EditEvent',
       component: () => import('@/pages/EditEvent'),
-      meta: { title: 'Edit event' }
+      meta: { title: 'Edit event', auth: true, }
     },
     {
       path: '/members',

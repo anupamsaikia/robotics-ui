@@ -64,7 +64,7 @@
         </v-btn>
 
         <v-list>
-          <v-list-tile v-if="!$store.state.authToken" @click="()=>{adminLoginDialog = true}">
+          <v-list-tile v-if="!$store.state.authToken" @click="toggleLoginForm(null)">
             <v-list-tile-title>Admin Login</v-list-tile-title>
           </v-list-tile>
           <v-list-tile v-else @click="logout()">
@@ -75,8 +75,8 @@
     </v-toolbar>
 
 
-    <v-dialog max-width="600" v-model="adminLoginDialog">
-      <admin-login @close="adminLoginDialog = false"></admin-login>
+    <v-dialog max-width="600" :value="$store.state.adminLoginDialog">
+      <admin-login :next="$store.state.loginNext" @close="toggleLoginForm"></admin-login>
     </v-dialog>
 
 
@@ -122,6 +122,7 @@
     methods: {
       ...mapActions([
       'logout',
+      'toggleLoginForm',
     ]),
     },
     name: 'App'
