@@ -14,23 +14,24 @@
           grow
         >
           <v-tabs-slider color="blue"></v-tabs-slider>
+          
+          <v-tab :ripple="false" key="past">
+            Past events
+          </v-tab>
 
           <v-tab :ripple="false" key="upcoming">
             Upcoming events
-          </v-tab>
-          <v-tab :ripple="false" key="past">
-            Past events
           </v-tab>
         </v-tabs>
         
 
         <v-tabs-items v-model="tab">
-          <v-tab-item key="upcoming">
-            <events-list tense="future" @error="error = $event"></events-list>
-          </v-tab-item>
-
           <v-tab-item key="past">
             <events-list tense="past" @error="error = $event"></events-list>
+          </v-tab-item>
+
+          <v-tab-item key="upcoming">
+            <events-list tense="future" @error="error = $event"></events-list>
           </v-tab-item>
         </v-tabs-items>
 
