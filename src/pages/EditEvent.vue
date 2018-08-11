@@ -6,7 +6,10 @@
     <!-- Add event dialog -->
   <v-layout row>
     <v-flex xs12 sm8 offset-sm2>
-      <event-editor mode="edit" :event_id="$route.params._id" @close="$router.push('/events')" @error="error = $event"></event-editor>
+      <event-editor v-if="$store.state.authToken" mode="edit" :event_id="$route.params._id" @close="$router.push('/events')" @error="error = $event"></event-editor>
+      <div v-else>
+        Please login to view this page.
+      </div>
     </v-flex>
   </v-layout>
   </div>
