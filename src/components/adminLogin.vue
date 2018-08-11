@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title primary-title class="headline">Admin Login</v-card-title>
     <v-divider></v-divider>
-    <v-form ref="adminLoginForm">
+    <v-form ref="adminLoginForm" @submit="login({ phone, password, cb })">
       <v-container>
         <v-layout wrap>
           <v-flex xs12>
@@ -10,9 +10,8 @@
               v-model="phone"
               label="Phone"
               prepend-icon="phone"
-              type="number"
-              required
               :counter="10"
+              autocomplete
             ></v-text-field>
           </v-flex>
           <v-flex xs12>
@@ -30,13 +29,13 @@
           </v-flex>
         </v-layout>
       </v-container>
+      <v-divider></v-divider>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn flat color="primary" @click="$emit('close')">Cancel</v-btn>
+        <v-btn color="primary" type="submit">Login</v-btn>
+      </v-card-actions>
     </v-form>
-    <v-divider></v-divider>
-    <v-card-actions>
-      <v-spacer></v-spacer>
-      <v-btn flat color="primary" @click="$emit('close')">Cancel</v-btn>
-      <v-btn  color="primary" @click="login({ phone, password, cb })">Login</v-btn>
-    </v-card-actions>
   </v-card>
 </template>
 
