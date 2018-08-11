@@ -60,14 +60,14 @@
           slot="activator"
           icon
         >
-          <v-icon>person</v-icon>
+          <v-icon>{{ ($store.state.authToken)?"person":"more_vert" }}</v-icon>
         </v-btn>
 
         <v-list>
-          <v-list-tile @click="()=>{adminLoginDialog = true}">
+          <v-list-tile v-if="!$store.state.authToken" @click="()=>{adminLoginDialog = true}">
             <v-list-tile-title>Admin Login</v-list-tile-title>
           </v-list-tile>
-          <v-list-tile @click="()=>{}">
+          <v-list-tile v-else @click="logout()">
             <v-list-tile-title>Logout</v-list-tile-title>
           </v-list-tile>
         </v-list>
@@ -76,7 +76,7 @@
 
 
     <v-dialog max-width="600" v-model="adminLoginDialog">
-      <admin-login></admin-login>
+      <admin-login @close="adminLoginDialog = false"></admin-login>
     </v-dialog>
 
 
@@ -89,6 +89,7 @@
 <script>
   import Loader from '@/components/loader'
   import AdminLogin from '@/components/adminLogin'
+  import { mapActions } from 'vuex'
 
   export default {
     components: {
@@ -119,7 +120,9 @@
 
     }),
     methods: {
-      
+      ...mapActions([
+      'logout',
+    ]),
     },
     name: 'App'
   }
