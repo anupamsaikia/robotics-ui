@@ -14,7 +14,7 @@
           grow
         >
           <v-tabs-slider color="blue"></v-tabs-slider>
-          
+
           <v-tab :ripple="false" key="past">
             Past events
           </v-tab>
@@ -42,7 +42,7 @@
 
 <!-- add event dialog -->
   <v-dialog v-model="addEventDialog" max-width="600">
-    <event-editor mode='add'></event-editor>
+    <event-editor @close="addEventDialog=false" mode='add'></event-editor>
   </v-dialog>
 
 <!-- Gap -->
