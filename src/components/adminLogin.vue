@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title primary-title class="headline">Admin Login</v-card-title>
     <v-divider></v-divider>
-    <v-form ref="adminLoginForm" @submit="login({ phone, password, cb })">
+    <v-form ref="adminLoginForm" action="#" @submit.stop="login({ phone, password, cb })">
       <v-container>
         <v-layout wrap>
           <v-flex xs12>
