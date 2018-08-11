@@ -10,7 +10,8 @@ export default {
   },
 
   setToken(state, token){
-    state.authToken = String(token)
+    window.localStorage.setItem('authtoken', String(token))
+    state.authToken = window.localStorage.getItem('authtoken')
   },
   removeToken(state){
     window.localStorage.removeItem('authtoken')

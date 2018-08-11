@@ -10,25 +10,39 @@ export default {
     }
   },
 
-  login({ commit }, { phone, password }){
+  login({ commit }, { phone, password, cb }){
     commit('startLoading')
-    fetch(url + '/getToken', {
+    fetch(url + '/api/getToken', {
       method: 'POST',
-      body: {
-        phone, password,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ phone, password }),
+    })
+    .then((response) => {
+      if (response.ok) {
+        return response;
       }
+      return Promise.reject(response);
+    })
+    .then((response) => {
+      return response.text();
     })
     .then(response => {
       commit('stopLoading')
-      if (response.ok){
-        commit('setToken', response.text)
-      }
-      else
-        return Promise.reject(response);
+      commit('setToken', response)
+      cb(true, 'Login succesful')
     })
     .catch(err => {
       commit('stopLoading')
-      alert('Login failed')
+      console.log(err)
+      err.text().then(e => {
+        cb(false, e)
+      })
+      .catch(e => {
+        alert('saf')
+        cb(false, "Network Failure")
+      })
     })
   },
 
