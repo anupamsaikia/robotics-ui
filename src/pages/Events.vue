@@ -54,6 +54,7 @@
     color="pink"
     dark fixed bottom right fab
     @click="addEventDialog = true"
+    v-if="$store.state.authToken"
   >
     <v-icon>add</v-icon>
   </v-btn>

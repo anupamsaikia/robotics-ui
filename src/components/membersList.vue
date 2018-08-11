@@ -27,6 +27,7 @@
               slot="activator"
               icon
               ripple
+              v-show="$store.state.authToken"
             >
               <v-icon>more_vert</v-icon>
             </v-btn>
