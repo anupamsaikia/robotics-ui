@@ -39,7 +39,7 @@
                 <v-list-tile :to="'/events/'+event._id+'/edit'">
                   <v-list-tile-title>Edit Event</v-list-tile-title>
                 </v-list-tile>
-                <v-list-tile @click="()=>{}">
+                <v-list-tile @click="deleteNow(event._id)">
                   <v-list-tile-title>Delete Event</v-list-tile-title>
                 </v-list-tile>
               </v-list>
@@ -55,7 +55,10 @@
     </v-list>
   </div>
 
-
+<!-- Delete dialog -->
+  <v-dialog v-model="deleteDialog" max-width="600" transition="slide-y-transition">
+    <delete-event :id="deleteEventId" @close="deleteDialog=false"></delete-event>
+  </v-dialog>
 
 <!-- Pagination -->
   <div v-if="events" class="text-xs-center my-5">
@@ -77,10 +80,11 @@
 <script>
 import * as dateTime from '@/helpers/datetime'
 import { mapActions } from 'vuex'
+import DeleteEvent from '@/components/deleteEvent'
 
 export default {
   props: ['tense'],
-  
+  components: { DeleteEvent },
   data(){
     return {
       //to store all the events
@@ -92,7 +96,8 @@ export default {
       page: 1,
       length: 4,
       order: '-',
-
+      deleteDialog: false,
+      deleteEventId: null,
     }
   },
 
@@ -102,6 +107,10 @@ export default {
     }
   },
   methods: {
+    deleteNow(id){
+      this.deleteEventId = id
+      this.deleteDialog = true
+    },
     getData(){
       this.events = null
       this.loading('start')

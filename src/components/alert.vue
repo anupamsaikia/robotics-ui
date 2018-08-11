@@ -3,6 +3,7 @@
     max-width="600"
     :persistent="!!persistent"
     transition="slide-y-transition"
+    v-model="dialog"
   >
     <v-card>
       <v-card-title class="headline">{{title}}</v-card-title>
@@ -38,6 +39,11 @@
 
 <script>
 export default {
-  props: ['title', 'description', 'persistent', 'buttons'],
+  props: ['visibility','title', 'description', 'persistent', 'buttons'],
+  data(){
+    return {
+      dialog: this.visibility,
+    }
+  }
 }
 </script>

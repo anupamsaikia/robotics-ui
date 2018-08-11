@@ -60,7 +60,6 @@
     <v-icon>add</v-icon>
   </v-btn>
 
-
 </div>
 </template>
 
@@ -79,7 +78,3 @@ export default {
   components: { EventsList, EventEditor },
 }
 </script>
-
-
-
-
