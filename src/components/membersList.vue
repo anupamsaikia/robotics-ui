@@ -12,7 +12,7 @@
         </v-list-tile-avatar>
         
           <v-list-tile-content>
-            <router-link :to="'/member/' + member._id" class="my-link">
+            <router-link :to="'/members/' + member._id" class="my-link">
               <v-list-tile-title class="body-2 grey--text text--darken-3" v-text="member.name"></v-list-tile-title>
               <v-list-tile-sub-title class="body-1" v-text="member.role"></v-list-tile-sub-title>
               </router-link>
@@ -33,12 +33,11 @@
             </v-btn>
 
             <v-list>
-              <v-list-tile
-                v-for="(item, i) in memberActions"
-                :key="i"
-                @click="selectMemberAction(item.title, event._id)"
-              >
-                <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+              <v-list-tile @click="()=>{}" :to="'/members/' + member._id + '/edit'">
+                <v-list-tile-title>Edit Member</v-list-tile-title>
+              </v-list-tile>
+              <v-list-tile @click="()=>{}">
+                <v-list-tile-title>Delete Member</v-list-tile-title>
               </v-list-tile>
             </v-list>
           </v-menu>
@@ -68,10 +67,7 @@ export default {
   data(){
     return {
       members: null,
-      memberActions: [
-        { title: 'Edit Member'},
-        { title: 'Delete Member'},
-      ],
+
       //to show msg in case of no member present
       message: null
 
@@ -98,7 +94,6 @@ export default {
       })
       .then((response) => {
         if (response.ok) {
-          console.log(response)
           return response.json();
         }
         return Promise.reject(response);
