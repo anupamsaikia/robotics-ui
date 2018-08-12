@@ -164,7 +164,7 @@ export default {
       this.loading('start')
 
 
-      fetch(this.$store.state.url + '/api/person/' + (this.mode == 'edit'? this.event_id: ''), {
+      fetch(this.$store.state.url + '/api/person/' + (this.mode == 'edit'? this.member_id: ''), {
         method: this.mode == 'edit'? 'PUT': 'POST',
         headers: {
           "Content-Type": "application/json; charset=utf-8",
