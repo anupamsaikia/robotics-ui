@@ -36,7 +36,7 @@
               <v-list-tile @click="()=>{}" :to="'/members/' + member._id + '/edit'">
                 <v-list-tile-title>Edit Member</v-list-tile-title>
               </v-list-tile>
-              <v-list-tile @click="()=>{}">
+              <v-list-tile @click="deleteNow(member._id)">
                 <v-list-tile-title>Delete Member</v-list-tile-title>
               </v-list-tile>
             </v-list>
@@ -55,6 +55,11 @@
   <div v-if="message" class="my-5">
     <p class="title py-5 px-2 grey--text text--darken-2" style="text-align:center">{{ message }}</p>
   </div>
+  
+<!-- Delete dialog -->
+  <v-dialog v-model="deleteDialog" max-width="600" transition="slide-y-transition">
+    <delete-member :id="deleteMemberId" @close="deleteDialog=false"></delete-member>
+  </v-dialog>
 
 </div>
 </template>
@@ -62,14 +67,21 @@
 
 <script>
 import { mapActions } from 'vuex'
+import DeleteMember from '@/components/deleteMember'
+
 
 export default {
+  components: { DeleteMember },
+
   data(){
     return {
       members: null,
 
       //to show msg in case of no member present
-      message: null
+      message: null,
+
+      deleteDialog: false,
+      deleteMemberId: null,
 
 
     }
@@ -82,6 +94,11 @@ export default {
   props:['mtype'],
   
   methods:{
+    deleteNow(id){
+      this.deleteMemberId = id
+      this.deleteDialog = true
+    },
+
     ...mapActions([
       'loading'
     ]),
