@@ -47,19 +47,28 @@
                 </v-flex>
                 <v-flex xs12 sm6>
                   <v-select
+                    v-model="personData.branch"
                     :items="(personData.module == 'Diploma')?dipBranchList:degBranchList"
                     label="Branch"
                     :rules="[rules.required]"
+                    dense
                   ></v-select>
                 </v-flex>
 
-
                 <v-flex xs12>
                   <v-text-field
-                    v-model="personData.rollnum"
+                    v-model="personData.rollno"
                     label="Roll no."
                     :rules="[rules.required]"
                   ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12>
+                  <v-textarea
+                    v-model="personData.remark"
+                    label="Previous experiences if any"
+                    hint="Describe briefly"
+                  ></v-textarea>
                 </v-flex>
                 
 
@@ -83,6 +92,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   data:()=>({
     personData: {},
@@ -95,17 +106,46 @@ export default {
       }
     },
 
-    moduleList: ['B.Tech/B.Des', 'Diploma'],
+    moduleList: ['Degree', 'Diploma'],
     degBranchList: ['CSE', 'ECE', 'IE', 'IT', 'FET', 'CE', 'MCD'],
     dipBranchList: ['CO', 'CT', 'ET', 'CI', 'FPT', 'AMT'],
 
   }),
   methods: {
+    //loading
+    ...mapActions([
+      'loading'
+    ]),
+
     join(){
       if (!this.$refs.form.validate()) {
         return
       }
-      alert('Joining...')
+
+      this.loading('start')
+      fetch(this.$store.state.url + '/api/join', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+        },
+        body: JSON.stringify(this.personData),
+      })
+      .then(response => {
+        if(response.ok){
+          alert('Submitted')
+        }
+        else {
+          return Promise.reject(response);
+        }
+        this.loading('stop')
+      })
+      .catch(error => {
+        console.error(`Fetch Error =\n`, error)
+        this.loading('stop')
+      })
+
+
+      alert('Joini...')
     }
   },
 }
