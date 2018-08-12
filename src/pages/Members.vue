@@ -39,20 +39,40 @@
     </v-flex>
   </v-layout>
 
+<!-- add event dialog -->
+  <v-dialog v-model="addMemberDialog" max-width="600">
+    <member-editor @close="addMemberDialog=false" mode='add'></member-editor>
+  </v-dialog>
+
+<!-- Floating Add Button -->
+  <v-btn
+    color="pink"
+    dark fixed bottom right fab
+    @click="addMemberDialog = true"
+    v-if="$store.state.authToken"
+  >
+    <v-icon>add</v-icon>
+  </v-btn>
+
 </div>
 </template>
 
 <script>
 import membersList from '@/components/membersList'
+import MemberEditor from '@/components/memberEditor'
+
+
 export default {
   data: () => ({
     error: null,
     tab:"true",
 
+    addMemberDialog: false,
+
     
   }),
 
-  components: { membersList },
+  components: { membersList, MemberEditor },
   
 }
 </script>
