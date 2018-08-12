@@ -45,13 +45,13 @@ export default new Router({
     },
     {
       path: '/members/:_id',
-      name: 'Members',
+      name: 'SingleMember',
       component: () => import('@/pages/SingleMember'),
       meta: { title: 'Members' }
     },
     {
-      path: '/members/:id/edit',
-      name: 'Members',
+      path: '/members/:_id/edit',
+      name: 'EditMember',
       component: () => import('@/pages/EditMember'),
       meta: { title: 'Members', auth: true, }
     }
