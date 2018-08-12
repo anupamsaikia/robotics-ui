@@ -42,6 +42,18 @@ export default new Router({
       name: 'Members',
       component: () => import('@/pages/Members'),
       meta: { title: 'Members' }
+    },
+    {
+      path: '/members/:_id',
+      name: 'Members',
+      component: () => import('@/pages/SingleMember'),
+      meta: { title: 'Members' }
+    },
+    {
+      path: '/members/:id/edit',
+      name: 'Members',
+      component: () => import('@/pages/EditMember'),
+      meta: { title: 'Members', auth: true, }
     }
   ]
 })
