@@ -111,7 +111,7 @@
         { icon: 'android', text: 'Projects', target: 'projects' },
         { icon: 'group', text: 'Members', target: 'members' },
         { icon: 'book', text: 'Tutorials', target: 'tutorials' },
-        { icon: 'photo_library', text: 'Photo Gallery', target: 'gallery' },
+        { icon: 'photo_library', text: 'Gallery', target: 'gallery' },
         /* { icon: 'chat_bubble', text: 'Send feedback', target: '' },
         { icon: 'help', text: 'Help', target: '' }, */
       ],
