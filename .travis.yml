@@ -1,9 +1,10 @@
 language: node_js
+
 node_js:
- - “8”
-script:
- - echo “Deploy!!”
+  - "stable"
+
 install:
- - npm install -g firebase-tools
+- npm install -g firebase-tools
+
 after_success:
- - firebase deploy -project robotics-club-cit -token $FIREBASE_TOKEN
+-  firebase deploy — project projectId — token $FIREBASE_TOKEN.
