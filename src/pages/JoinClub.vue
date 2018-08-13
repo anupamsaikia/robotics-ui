@@ -71,6 +71,22 @@
                   ></v-textarea>
                 </v-flex>
                 
+                <v-flex xs12>
+                  <p>Passport size photo</p>
+                  <image-uploader
+                    :debug="1"
+                    :maxWidth="1024"
+                    :quality="0.7"
+                    outputFormat="blob"
+                    :preview="true"
+                    capture="environment"
+                    @input="onInput"
+                  >
+                    <label>
+                      <span v-if="uploading">Uploading...</span>
+                    </label>
+                  </image-uploader>
+                </v-flex>
 
               </v-layout>
             </v-container>
@@ -93,8 +109,12 @@
 
 <script>
 import { mapActions } from 'vuex'
+import { ImageUploader } from 'vue-image-upload-resize'
 
 export default {
+  components: {
+    ImageUploader,
+  },
   data:()=>({
     personData: {},
 
@@ -110,6 +130,7 @@ export default {
     degBranchList: ['CSE', 'ECE', 'IE', 'IT', 'FET', 'CE', 'MCD'],
     dipBranchList: ['CO', 'CT', 'ET', 'CI', 'FPT', 'AMT'],
 
+    uploading: false,
   }),
   methods: {
     //loading
@@ -117,9 +138,42 @@ export default {
       'loading'
     ]),
 
+    onInput(file){
+      this.uploading = true
+      this.loading('start')
+
+      var form = new FormData
+      form.append('data', file)
+      fetch(this.$store.state.url + '/api/file', {
+        method: 'POST',
+        body: form,
+      }).then(response => {
+        if (response.ok){
+          return response.json()
+        }
+        else
+          Promise.reject(response)
+      })
+      .then(response => {
+        console.log(this.$store.state.url + '/api/file/' + response.id)
+        this.personData.avatar = this.$store.state.url + '/api/file/' + response.id
+
+        this.uploading = false
+        this.loading('stop')
+      })
+      .catch(err => {
+        console.log(err)
+        this.uploading = false
+        this.loading('stop')
+      })
+    },
+
     join(){
       if (!this.$refs.form.validate()) {
         return
+      }
+      if (! this.personData.avatar){
+        return alert('Please upload your photo')
       }
 
       this.loading('start')
@@ -143,9 +197,6 @@ export default {
         console.error(`Fetch Error =\n`, error)
         this.loading('stop')
       })
-
-
-      alert('Joini...')
     }
   },
 }
