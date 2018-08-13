@@ -82,8 +82,8 @@
                     capture="environment"
                     @input="onInput"
                   >
-                    <label>
-                      <span v-if="uploading">Uploading...</span>
+                    <label for="fileInput" slot="upload-label">
+                      <p v-if="uploading">Uploading...</p>
                     </label>
                   </image-uploader>
                 </v-flex>
@@ -99,7 +99,7 @@
             <v-icon>info</v-icon>
             <span class="caption px-2">Only for CIT students</span>
             <v-spacer></v-spacer>
-            <v-btn  color="primary" @click="join">Submit</v-btn>
+            <v-btn :disabled="!personData.avatar" color="primary" @click="join">Submit</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
