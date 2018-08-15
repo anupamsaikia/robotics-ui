@@ -70,14 +70,6 @@
                     hint="Describe briefly"
                   ></v-textarea>
                 </v-flex>
-
-                <v-flex xs12>
-                  <v-textarea
-                    v-model="personData.whyjoin"
-                    label="Why do you want to join?"
-                    hint="Describe briefly"
-                  ></v-textarea>
-                </v-flex>
                 
                 <v-flex xs12>
                   <p>Passport size photo</p>
@@ -87,6 +79,7 @@
                     :quality="0.7"
                     outputFormat="blob"
                     :preview="true"
+                    capture="environment"
                     @input="onInput"
                   >
                     <label for="fileInput" slot="upload-label">

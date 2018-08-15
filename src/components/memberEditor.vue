@@ -45,7 +45,7 @@
               <v-flex xs12 sm6>
                 <v-select
                   v-model="personData.details.branch"
-                  :items="(personData.details.module == 'Diploma')?dipBranchList:degBranchList"
+                  :items="(personData.module == 'Diploma')?dipBranchList:degBranchList"
                   label="Branch"
                   :rules="[rules.required]"
                   dense
@@ -56,6 +56,7 @@
                 <v-text-field
                   v-model="personData.details.rollno"
                   label="Roll no."
+                  :rules="[rules.required]"
                 ></v-text-field>
               </v-flex>
 
@@ -112,7 +113,7 @@ export default {
     moduleList: ['Degree', 'Diploma'],
     degBranchList: ['CSE', 'ECE', 'IE', 'IT', 'FET', 'CE', 'MCD'],
     dipBranchList: ['CO', 'CT', 'ET', 'CI', 'FPT', 'AMT'],
-    roleList: ['Member', 'Chief Convenor', 'Asst. Convenor','Technical Support', 'Photography', 'Designing', 'Profile Management', 'Club Management', 'Co-ordinator', 'Faculty'],
+    roleList: ['Member', 'Convenor', 'Co-ordinator', 'Non-member', 'Faculty'],
 
   }),
 
