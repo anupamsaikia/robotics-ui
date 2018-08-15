@@ -10,6 +10,8 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "date-fns": "^1.29.0",
+    "uppload-vue": "^0.6.0",
     "vue": "^2.5.2",
     "vue-image-upload-resize": "^1.1.6",
     "vue-picture-swipe": "^0.4.0",
